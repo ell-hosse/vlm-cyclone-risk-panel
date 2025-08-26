@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GeoXAI Vulnerability — Demo</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">◎</div>
+    <div class="titles">
+      <h1>GeoXAI Vulnerability</h1>
+      <p class="subtitle">Explainable cyclone risk at building scale</p>
+    </div>
+  </div>
+  <nav class="nav">
+    <a class="nav-link active">Demo</a>
+    <a class="nav-link">Method</a>
+    <a class="nav-link">Ethics</a>
+    <a class="nav-link">About</a>
+  </nav>
+</header>
+
+<main class="layout">
+  <!-- Inputs -->
+  <section class="panel left">
+    <h2>Inputs</h2>
+    <div class="field-group">
+      <label>Latitude</label>
+      <input type="text" value="37.1961° N" disabled/>
+    </div>
+    <div class="field-group">
+      <label>Longitude</label>
+      <input type="text" value="50.2328° E" disabled/>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field-group">
+      <label>Coordinate System</label>
+      <div class="select disabled">EPSG:4326 (WGS84)</div>
+    </div>
+    <div class="field-group">
+      <label>Patch Size</label>
+      <div class="select disabled">~120 m × 120 m</div>
+    </div>
+
+    <div class="divider"></div>
+    <h3>Facade (optional)</h3>
+    <div class="upload-card">
+      <img src="images/facade.jpg" alt="Facade photo" class="thumb"/>
+      <div class="upload-text">
+        <strong>Mobile facade image</strong><br/>
+        <span class="muted">Provided by user (demo)</span>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn disabled">Fetch Orthophoto</a>
+      <a class="btn secondary disabled">Reverse Geocode</a>
+    </div>
+    <p class="helper">Design mock — buttons are disabled.</p>
+    <div class="badge-row">
+      <div class="badge">No JS</div><div class="badge">Design Only</div><div class="badge">Pilot</div>
+    </div>
+  </section>
+
+  <!-- Center: imagery -->
+  <section class="map-stage">
+
+    <div class="facade-card">
+      <div class="card-title">Facade View</div>
+      <img src="images/facade.jpg" alt="Facade" class="facade-img"/>
+      <div class="caption">Single‑storey dwelling with gable roof and barred windows (demo).</div>
+    </div>
+
+      <div class="map-card">
+      <div class="map-toolbar">
+        <div class="chip active">Overhead</div>
+        <div class="chip">XAI Overlay</div>
+        <div class="chip">What‑if</div>
+      </div>
+      <div class="map-canvas">
+        <img src="images/overhead.png" class="map-img" alt="Overhead orthophoto (demo)"/>
+        <div class="map-watermark">Overhead image (demo)</div>
+      </div>
+      <div class="map-legend">
+        <div class="legend-item"><span class="legend-swatch sw1"></span> Roof area</div>
+        <div class="legend-item"><span class="legend-swatch sw2"></span> Vegetation proximity</div>
+        <div class="legend-item"><span class="legend-swatch sw3"></span> Facade cues</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Right: results -->
+  <section class="panel right">
+    <h2>Results</h2>
+
+    <div class="card risk">
+      <div class="risk-score">
+        <div class="risk-dial"><div class="needle" style="--angle:30deg"></div></div>
+        <div class="risk-text">
+          <div class="risk-label">Risk: <strong>Medium-High</strong></div>
+          <div class="risk-meta">
+        why? low elevation, nearby trees, and roof wear <br>
+        Confidence: about 80%
+      </div>
+        </div>
+      </div>
+      <div class="risk-bars">
+    <div class="bar">
+      <div class="bar-label">Roof condition</div>
+      <div class="bar-fill" style="--v:0.62"></div>
+    </div>
+    <div class="bar">
+      <div class="bar-label">Tree proximity</div>
+      <div class="bar-fill" style="--v:0.80"></div>
+    </div>
+    <div class="bar">
+      <div class="bar-label">Elevation</div>
+      <div class="bar-fill" style="--v:0.88"></div>
+    </div>
+  </div>
+    </div>
+
+
+    <div class="card attrs">
+  <h3>Detected Attributes (demo)</h3>
+  <ul class="kv">
+    <li><span>Roof shape</span><b>Gable + dormer (90%)</b></li>
+    <li><span>Roof material</span><b>Metal/corrug. (65%)</b></li>
+    <li><span>Roof maintenance</span><b>Intact + no veg (70%)</b></li>
+    <li><span>Stories</span><b>1.5 (80%)</b></li>
+    <li><span>Wall material</span><b>Tile + panel (85%)</b></li>
+    <li><span>Footprint shape</span><b>Rectangular (85%)</b></li>
+    <li><span>Footprint area</span><b>~150 m² (70%)</b></li>
+    <li><span>Trees within 5 m</span><b>Yes (90%)</b></li>
+    <li><span>Neighborhood density</span><b>Low (80%)</b></li>
+    <li><span>Elevation</span><b>−23 m AMSL (95%)</b></li>
+    <li><span>Coast proximity</span><b>Caspian plain (70%)</b></li>
+    <li><span>Address</span><b>via reverse geocode</b></li>
+  </ul>
+</div>
+
+
+
+    <div class="card explain">
+      <h3>LLM‑style Explanation (demo)</h3>
+      <p>
+        Single-dwelling with a <em>gable roof + dormer (90%)</em>. Roof shows
+  <em>paint wear, no vegetation (70%)</em>. Dense <em>trees near facade (90%)</em>
+  raise debris impact risk. Site elevation is <strong>−23 m</strong> (below sea level),
+  increasing flood vulnerability on the Caspian plain. Overall risk:
+  <strong>Medium–High</strong> (±0.18).
+      </p>
+    </div>
+    <div class="cf">
+  <div class="cf-title">What could make this home safer?</div>
+  <ul>
+    <li><b>Cut back nearby trees</b> so branches don’t touch the walls or roof → less chance of storm damage.</li>
+    <li><b>Strengthen the roof edges</b> with straps or braces → roof stays firm in strong winds.</li>
+    <li><b>Repaint and seal the roof panels</b> → slows down wear and keeps water out.</li>
+    <li><b>Prepare for floods</b> by lifting electrical systems and using small barriers → reduces water damage.</li>
+  </ul>
+</div>
+
+
+  </section>
+</main>
+
+<footer class="foot">
+  <div>© 2025 GeoXAI Vulnerability — Design mock (no JS).</div>
+  <div class="foot-links"><a>Accessibility</a><a>License</a><a>Contact</a></div>
+</footer>
+</body>
+</html>
